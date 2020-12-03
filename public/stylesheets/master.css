@@ -17,6 +17,7 @@ body {
         "foot";
     grid-template-rows: auto 1fr auto;
     background-color: #3d3d3d;
+    /* dark theme, light theme: #f0f0f0*/
 }
 
 body>nav {
@@ -67,6 +68,7 @@ nav {
 
 .btnColoring {
     background-color: #009400;
+    border-color: #009400;
 }
 
 footer {
