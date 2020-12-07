@@ -10,59 +10,56 @@
   background-color: #f0f0f0;
 }
 
+h2 {
+  font-weight: bold;
+}
+
 td {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 /* Small devices (landscape phones, 544px and up) */
-@media (min-width: 300px) {
-  .navbar-brand {
-    font-size: 1.8rem;
+@media (min-width: 300px) and (max-width: 767px) {
+  h1 {
+    font-size: 1.5rem;
   }
 
-  .input-group {
-    width: 90%;
+  h2 {
+    font-size: 1rem;
+    font-weight: bold;
   }
 
+  td {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .plant_img {
+    height: 100px;
+    width: 100px;
+  }
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
   h1 {
     font-size: 2rem;
   }
 
-  .container {
-    padding: 0;
-  }
-
   h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  td {
     font-size: 1rem;
+    font-weight: bold;
   }
 
-  .btn-lg {
-    font-size: 1rem;
-    padding: 0.2rem 0.4rem;
+  .plant_img {
+    height: 100px;
+    width: 150px;
   }
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .navbar-brand {
-    font-size: 3rem;
-  }
-
-  .input-group {
-    width: 60%;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
-
-  .btn-lg {
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem;
-  }
-
-}
-
-.nav-active {
-  transform: translateX(0%);
 }

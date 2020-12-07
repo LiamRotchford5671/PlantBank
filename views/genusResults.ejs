@@ -41,14 +41,13 @@
       </ul>
     </div>
 
-
-    <div class="input-group input-group-append mt-1 ml-4">
+    <div class="input-group input-group-append mt-1 ml-4 w-75">
       <button class="btn btnColoring text-light input-group-text" id="searchBtn"
         onclick="getSearchResults()">Search</button>
       <input type="text" class="form-control col-5" id="searchInp" aria-label="SearchBar">
     </div>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent">
+    <button class="navbar-toggler mx-4 mt-3" type="button" data-toggle="collapse" data-target="#collapseContent">
       <i class="fas fa-bars fa-2x"></i>
     </button>
 
@@ -81,7 +80,7 @@
       </h1>
     </section>
 
-    <section class="row mx-auto col-10" id="tableContainer" aria-label="Results_row">
+    <section class="row justify-content-center mx-auto col-10" id="tableContainer" aria-label="Results_row">
 
       <table class="table table-hover text-center" id="table" data-toggle="table" aria-label="Genus Results Table">
         <thead>
@@ -114,7 +113,7 @@
             </td>
             <% } %>
             <td class="align-middle">
-              <button class="btn btn-primary btnColoring btn-lg w-50"
+              <button class="btn btn-primary btnColoring btn-lg"
                 onclick="getDetails('<%= results[i].slug %>')">Details</button>
             </td>
           </tr>
@@ -123,17 +122,16 @@
       </table>
 
       <% if (count > 1) { %>
-      <button id="prevGenusBtn" class="btn btn-primary btn-lg btnColoring w-25" role="button" value="<%= count %>"
-        style="width:100px" aria-label="Previous button of table results">Previous</button>
+      <button id="prevGenusBtn" class="btn btn-primary btn-lg btnColoring mr-5 col-4" role="button" value="<%= count %>"
+        aria-label="Previous button of table results">Previous</button>
       <% } else { %>
       <button id="prevGenusBtn" class="btn btn-primary d-none" disabled role="button" value="<%= count %>"></button>
       <% } %>
       <% if (count < lastPg) { %>
-      <button id="nextGenusBtn" class="btn btn-primary btn-lg btnColoring w-25 float-right" role="button"
-        value="<%= count %>" style="width:100px" aria-label="Next button of table results">Next</button>
+      <button id="nextGenusBtn" class="btn btn-primary btn-lg btnColoring ml-5 float-right col-4" role="button"
+        value="<%= count %>" aria-label="Next button of table results">Next</button>
       <% } else { %>
-      <button id="nextGenusBtn" class="btn btn-primary d-none" disabled role="button" value="<%= count %>"
-        style="width:100px"></button>
+      <button id="nextGenusBtn" class="btn btn-primary d-none" disabled role="button" value="<%= count %>"></button>
       <% } %>
 
     </section>
