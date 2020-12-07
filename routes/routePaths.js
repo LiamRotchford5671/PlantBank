@@ -26,8 +26,8 @@ router.get('/', function (req, res) {
 });
 
 /* GET Reference Page */
-router.get('/reference', function (req, res) {
-  res.render('referencePage');
+router.get('/info', function (req, res) {
+  res.render('info');
   res.end();
 });
 
