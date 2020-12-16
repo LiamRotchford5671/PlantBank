@@ -15,6 +15,12 @@
   float: left;
 }
 
+#searchBtn {
+  border-bottom: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+  border-top: 2px solid #FFF;
+}
+
 
 /* Media Queries */
 
