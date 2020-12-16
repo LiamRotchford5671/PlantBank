@@ -26,8 +26,8 @@ router.get('/', function (req, res) {
 });
 
 /* GET Reference Page */
-router.get('/reference', function (req, res) {
-  res.render('referencePage');
+router.get('/info', function (req, res) {
+  res.render('info');
   res.end();
 });
 
@@ -142,11 +142,11 @@ router.get('/plantInformation', async (req, res) => {
   let plantStr = Object.values(queryObject);
 
   let plantObj = await axios.get(urlAPI + 'plants/' + plantStr + '?token=' + token)
-    // .then(resp => console.log(resp.data.data))
+    //.then(resp => console.log(resp.data.data))
     .catch(err => console.error(err));
 
   res.render('plantInformation', {
-    data: plantObj.data.data
+    data: plantObj.data.data,
   });
 
   res.end();

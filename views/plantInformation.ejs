@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="description" content="PlantBank information application utilizing the Trefle.io plant API">
   <meta name="keywords" content="EJS, CSS, JavaScript, Express (Node), Bootstrap, Font Awesome">
-  <meta name="author" content="Yan Li">
+  <meta name="author" content="Liam Rotchford">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Plant Information Page</title>
@@ -16,192 +16,441 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+  <link rel='stylesheet' href='/stylesheets/master.css' />
   <link rel='stylesheet' href='/stylesheets/plantInformation.css' />
-
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="homepage-content">
-  <nav>
-    <div class="logo">
-      <a class="navbar-brand" aria-label="Title Home Nav link" href="/"><img class="logo-img" src="../Icons/leaves.png"
-          alt="" />Plant Bank</a>
+<body>
+  <nav class="navbar navbar-light bg-light mb-5">
+
+    <a href="/" class="navbar-brand font-weight-bold">
+      <img src="../Icons/leafIcon.png" class="d-inline-block iconSizingBrand mr-2" alt="PlantBank Nav Icon">
+      PlantBank
+    </a>
+
+    <div class="navbar-expand-lg">
+      <ul class="navbar-nav font-weight-bold">
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/">Home</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/about">About</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/info">Information</a>
+        </li>
+      </ul>
     </div>
-    <ul class="nav-links">
-      <li class="nav-item" aria-label="Home Nav link"><a class="link" href="/">Home</a></li>
-      <li class="nav-item" aria-label="About Nav link"><a class="link" href="/about">About</a></li>
-      <li class="nav-item" aria-label="Reference Nav link"><a class="link" href="/reference">Reference</a></li>
-    </ul>
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+
+    <div class="input-group input-group-append mt-1 ml-4 w-75">
+      <button class="btn btnColoring text-light input-group-text" id="searchBtn"
+        onclick="getSearchResults()">Search</button>
+      <input type="text" class="form-control col-5" id="searchInp" aria-label="SearchBar">
     </div>
-  </nav>
 
-  <section class="row">
-    <div class="col">
-      <div class="card searchStyle">
-        <img class="card-img" src="../images/plantinfo-img.png" alt="">
-      </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- Header or name of the plant -->
-  <section class="row justify-content-center gapSpace mt-5">
-    <h1 class="text-center">
-      <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
-      <% if (data.common_name) {%>
-      <span class="text-center " aria-label="Plant Name"
-        style="text-transform: capitalize"><%= data.common_name %></span>
-      <% } else { %>
-      <span class="text-center" aria-label="Plant Name"><%= data.scientific_name %></span>
-
-      <% } %>
-      <i class="fas fa-xs fa-leaf"></i>
-    </h1>
-  </section>
+    <button class="navbar-toggler mx-4 mt-3" type="button" value="nav expand button" data-toggle="collapse"
+      data-target="#collapseContent">
+      <i class="fas fa-bars fa-2x"></i>
+    </button>
 
 
-  <!-- Container for plant info body -->
-  <section class="container pageContainer mt-1 rounded">
-    <!-- first row first col -->
-    <section class="row theRow1" aria-label="Plant Info First Row">
-      <div class="space1 col-6 mt-3 d-flex mx-auto theCol1" aria-label="space1_img">
-        <% if (data.image_url) {%>
-        <img class="plant_img mt-4 mb-3 ml-1" src="<%= data.image_url %>" height="500px" width="450px"
-          alt="<%= data.slug %> image">
-        <% } else { %>
-        <img class="plant_img mt-4 mb-3 ml-5" src="../images/no-image-available-icon-13.jpg" height="500px"
-          width="450px" alt="<%= data.slug %> image">
-        <% } %>
-      </div>
-
-      <!-- first row second col -->
-      <div class="space2 col-6 mt-3 theCol2 " aria-label="space2_info1">
-        <div class="theText mt-4 mb-5 p-2">
-          <i class="fas fa-seedling fa-lg fa-flip-horizontal"></i>
-          <div class="list_case">
-            <ul class="list_id ml-2 mr-5 p-1">
-              <li class="list_item text-left " aria-label="Plant Scientific Name">Scientific Name:
-                <div class="pInfo">
-                  <%= data.scientific_name %>
-                </div>
-              </li>
-              <li class="list_item text-left " aria-label="Genus Name">Genus Name:
-                <div class="pInfo">
-                  <%= data.genus.name %>
-                </div>
-              </li>
-              <li class="list_item text-left " aria-label="Plant Family Name">Family:
-                <div class="pInfo">
-                  <%= data.main_species.family %>
-                </div>
-              </li>
-              <li class="list_item text-left " aria-label="Family Common Name">Family Common Name:
-                <div class="pInfo">
-                  <%= data.family_common_name %>
-                </div>
-              </li>
-            </ul>
+    <section class="collapse navbar-collapse flex-grow-0" id="collapseContent">
+      <section class="container-fluid">
+        <section class="row col-12">
+          <div class="col-12 mt-2 ml-5">
+            <a href="https://github.com/LiamRotchford5671/PlantBank"><img src="../Icons/githubIcon.png"
+                class="iconSizingRef float-right" alt="Github Repo Link Icon"></a>
           </div>
-        </div>
 
-      </div>
+          <div class="col-12 ml-5">
+            <a href="https://www.linkedin.com/in/liam-rotchford-828965113/"><img src="../Icons/linkedinIcon.png"
+                class="iconSizingRef float-right mt-3" alt="Linkedin Link Icon"></a>
+          </div>
+        </section>
+      </section>
     </section>
 
-    <!-- second row  -->
-    <section class="row theRow2" aria-label="Plant Info Second Row">
-      <div class="card space3 col-lg-12 col-md-12 col-sm-6 mt-3 d-flex mx-auto my-auto align-items-center theCol3 "
-        aria-label="space1_img">
-        <!-- table -->
-        <h1 class="tableTitle mt-5 mb-4">
-          <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
-          More Details
-          <i class="fas fa-xs fa-leaf"></i>
-        </h1>
-        <table class="table table-striped col-auto">
+  </nav>
+
+  <main class="container-fluid text-light my-5 col-11">
+
+    <header class="header mt-3">
+      <h1>
+        <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
+        <% if (data.common_name) {%>
+        <span class="text-center font-weight-bold font-italic text-capitalize"
+          aria-label="Plant Name"><%= data.common_name %></span>
+        <% } else { %>
+        <span class="text-center font-weight-bold font-italic text-capitalize"
+          aria-label="Plant Name"><%= data.scientific_name %></span>
+        <% } %>
+      </h1>
+    </header>
+
+    <section class="general mt-5 col-sm-12 col-md-12 col-lg-12">
+
+      <section class="titleHidden my-1 mx-auto justify-content-center"
+        aria-label="Plant Preview Image Phone Only Display">
+        <img class="previewHidden" src="<%= data.image_url %>" onerror="javascript:this.src='../Icons/no-photo.png'"
+          alt="<%= data.slug %> image">
+      </section>
+
+      <table class="table table-bordered text-light">
+        <tbody>
+          <tr>
+            <th scope="row">Scientfic Name: </th>
+            <td><%= data.scientific_name %></td>
+          </tr>
+          <tr>
+            <th scope="row">Year Recorded: </th>
+            <td><%= data.year %></td>
+          </tr>
+          <tr>
+            <th scope="row">Bibliography Entry: </th>
+            <td><%= data.bibliography %></td>
+          </tr>
+          <tr>
+            <th scope="row">Bibliography Author: </th>
+            <td><%= data.author %></td>
+          </tr>
+          <tr>
+            <th scope="row">Plant Family: </th>
+            <td><%= data.main_species.family %></td>
+          </tr>
+          <tr>
+            <th scope="row">Plant Genus: </th>
+            <td><%= data.main_species.genus %></td>
+          </tr>
+          <tr>
+            <th scope="row">Growth Areas: </th>
+            <td><%= data.observations %></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="preview mt-5 mx-auto w-75" aria-label="Plant Preview Image">
+      <img class="previewImg" src="<%= data.image_url %>" onerror="javascript:this.src='../Icons/no-photo.png'"
+        height="425px" width="575px" alt="<%= data.slug %> image">
+    </section>
+
+    <section class="details row mt-5">
+
+      <section class="col-sm-12 col-md-12 col-lg-6">
+        <section class="mb-2" aria-label="General Details Title">
+          <h2 class="tableTitle text-center" role="title">
+            <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
+            General Details
+            <i class="fas fa-xs fa-leaf"></i>
+          </h2>
+        </section>
+
+        <table class="table table-bordered text-light">
           <tbody>
-            <tr class="table-bordered">
-              <th scope="row">`<i class="fas fa-xs fa-leaf fa-flip-horizontal"></i></th>
-              <% if (data.year) {%>
-              <td class="title" aria-label="Year Discovered">Year</td>
-              <td class="title_info"><%= data.year %></td>
+            <tr>
+              <th scope="row">Type: </th>
+              <% if (data.main_species.specifications.growth_habit != null) { %>
+              <td><%= data.main_species.specifications.growth_habit %></td>
               <% } else { %>
-              <td class="title" aria-label="Year Discovered">Year</td>
-              <td>N/A</td>
-              <% } %>
-              <td class="title">`<i class="fas fa-xs fa-leaf fa-flip-horizontal"></i></td>
-              <% if (data.observations) {%>
-              <td class="title" aria-label="Location Discovered">Location</td>
-              <td><%= data.observations %></td>
-              <% } else { %>
-              <td class="title" aria-label="Location Discovered">Location</td>
-              <td>N/A</td>
+              <td class="font-italic">Information Not Availible</td>
               <% } %>
             </tr>
             <tr>
-              <th scope="row">`<i class="fas fa-xs fa-leaf fa-flip-horizontal"></i></th>
-              <% if (data.author) {%>
-              <td class="title" aria-label="Discoverer">Author</td>
-              <td><%= data.author %></td>
+              <th scope="row">Edible: </th>
+              <% if (data.main_species.edible != null) { %>
+              <td><%= data.main_species.edible %></td>
               <% } else { %>
-              <td class="title " aria-label="Discoverer">Author</td>
-              <td>N/A</td>
-              <% } %>
-              <td class="title">`<i class="fas fa-xs fa-leaf fa-flip-horizontal"></i></td>
-              <% if (data.Bibliography) {%>
-              <td class="title" aria-label="Bibliography">Bibliography</td>
-              <td><%= data.Bibliography %></td>
-              <% } else { %>
-              <td class="title" aria-label="Bibliography">Bibliography</td>
-              <td>N/A</td>
+              <td class="font-italic">Information Not Availible</td>
               <% } %>
             </tr>
-            <tr class="table-bordered">
-              <th scope="row">`<i class="fas fa-xs fa-leaf fa-flip-horizontal"></th>
-              <td class="title" aria-label="Vegatable Status">Vegetable</td>
-              <td><%= data.vegetable %></td>
-              <td class="title">`<i class="fas fa-xs fa-leaf fa-flip-horizontal"></i></td>
-              <td class="title" aria-label="Edible Status">Edible</td>
-              <td><%= data.main_species.edible %></td>
+            <tr>
+              <th scope="row">Vegetable: </th>
+              <% if (data.main_species.vegetable != null) { %>
+              <td><%= data.main_species.vegetable %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Toxicity: </th>
+              <% if (data.main_species.specifications.toxicity != null) { %>
+              <td><%= data.main_species.specifications.toxicity %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Nitrogen Fixation: </th>
+              <% if (data.main_species.specifications.nitrogen_fixation!= null) { %>
+              <td><%= data.main_species.specifications.nitrogen_fixation %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Average Height (cm): </th>
+              <% if (data.main_species.specifications.average_height.cm != null) { %>
+              <td><%= data.main_species.specifications.average_height.cm %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Maximum Height (cm): </th>
+              <% if (data.main_species.specifications.maximum_height.cm != null) { %>
+              <td><%= data.main_species.specifications.maximum_height.cm %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Flower Color: </th>
+              <% if (data.main_species.flower.color != null) { %>
+              <td><%= data.main_species.flower.color %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Foliage Color: </th>
+              <% if (data.main_species.foliage.color != null) { %>
+              <td><%= data.main_species.foliage.color %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Foliage Texture: </th>
+              <% if (data.main_species.foliage.texture != null) { %>
+              <td><%= data.main_species.foliage.texture %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Fruit / Seed Color: </th>
+              <% if (data.main_species.fruit_or_seed.color != null) { %>
+              <td><%= data.main_species.fruit_or_seed.color %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Fruit / Seed Shape: </th>
+              <% if (data.main_species.fruit_or_seed.shape != null) { %>
+              <td><%= data.main_species.fruit_or_seed.shape %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Seed Persistence: </th>
+              <% if (data.main_species.fruit_or_seed.seed_persistence != null) { %>
+              <td><%= data.main_species.fruit_or_seed.seed_persistence %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Blooming Months: </th>
+              <% if (data.main_species.growth.bloom_months != null) { %>
+              <td><%= data.main_species.growth.bloom_months %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Fruiting Months: </th>
+              <% if (data.main_species.growth.fruit_months != null) { %>
+              <td><%= data.main_species.growth.fruit_months %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </section>
+
+      <section class="col-sm-12 col-md-12 col-lg-6">
+        <section class="mx-auto mb-2" aria-label="Growth Information Title">
+          <h2 class="tableTitle text-center" role="title">
+            <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
+            Growth Information
+            <i class="fas fa-xs fa-leaf"></i>
+          </h2>
+        </section>
+
+        <table class="table table-bordered text-light">
+          <tbody>
+            <tr>
+              <th scope="row">Growth Months: </th>
+              <% if (data.main_species.specifications.growth_months != null) { %>
+              <td><%= data.main_species.specifications.growth_months %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Growth Rate: </th>
+              <% if (data.main_species.specifications.growth_rate != null) { %>
+              <td><%= data.main_species.specifications.growth_rate %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Sowing: </th>
+              <% if (data.main_species.growth.sowing != null) { %>
+              <td><%= data.main_species.growth.sowing %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Row Spacing (cm): </th>
+              <% if (data.main_species.growth.row_spacing.cm != null) { %>
+              <td><%= data.main_species.growth.row_spacing.cm %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Spread (cm): </th>
+              <% if (data.main_species.growth.spread.cm != null) { %>
+              <td><%= data.main_species.growth.spread.cm %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Days To Harvast: </th>
+              <% if (data.main_species.growth.days_to_harvast != null) { %>
+              <td><%= data.main_species.growth.days_to_harvast %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Light Range (1-10): </th>
+              <% if (data.main_species.growth.light != null) { %>
+              <td><%= data.main_species.growth.light %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Watering Range (1-10): </th>
+              <% if (data.main_species.growth.minimum_precipitation.mm != null && data.main_species.growth.maximum_precipitation.mm != null) { %>
+              <td><%= data.main_species.growth.minimum_precipitation.mm %> -
+                <%= data.main_species.growth.maximum_precipitation.mm %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Temperature Range (F): </th>
+              <% if (data.main_species.growth.minimum_temperature.deg_f != null && data.main_species.growth.maximum_temperature.deg_f != null) { %>
+              <td><%= data.main_species.growth.minimum_temperature.deg_f %> -
+                <%= data.main_species.growth.maximum_temperature.deg_f %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Humidity (1-10): </th>
+              <% if (data.main_species.growth.atmospheric_humidity != null) { %>
+              <td><%= data.main_species.growth.atmospheric_humidity %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Minimum Root Depth (cm): </th>
+              <% if (data.main_species.growth.minimum_root_depth.cm != null) { %>
+              <td><%= data.main_species.growth.minimum_root_depth.cm %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Soil Nutrients (1-10): </th>
+              <% if (data.main_species.growth.soil_nutriments != null) { %>
+              <td><%= data.main_species.growth.soil_nutriments %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Soil Salinity (1-10): </th>
+              <% if (data.main_species.growth.soil_salinity != null) { %>
+              <td><%= data.main_species.growth.soil_salinity %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">Soil Texture (1-10): </th>
+              <% if (data.main_species.growth.soil_texture != null) { %>
+              <td><%= data.main_species.growth.soil_texture %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
+            </tr>
+            <tr>
+              <th scope="row">ph Range: </th>
+              <% if (data.main_species.growth.ph_minimum != null && data.main_species.growth.ph_maximum != null) { %>
+              <td><%= data.main_species.growth.ph_minimum %> - <%= data.main_species.growth.ph_maximum %></td>
+              <% } else { %>
+              <td class="font-italic">Information Not Availible</td>
+              <% } %>
             </tr>
           </tbody>
-
         </table>
-
-      </div>
+      </section>
 
     </section>
 
-  </section>
+  </main>
 
 
-  <script type="text/javascript" src="../javascripts/plantInfo.js"></script>
+  <footer class="mt-5" aria-label="Footer">
+    <section class="container-fluid mb-3">
+      <section class="row justify-content-center col-12">
+        <h3 class="text-dark font-weight-bold mt-3">PlantBank</h3>
+      </section>
+      <section class="row justify-content-center col-12">
+        <div>
+          <p class="text-dark font-weight-bold mt-3 mx-5">Liam Rotchford</p>
+        </div>
+      </section>
+      <section class="row justify-content-center col-12">
+        <div class="col-6">
+          <a href="https://github.com/LiamRotchford5671/PlantBank"><img src="../Icons/githubIcon.png"
+              class="iconSizingFootRef float-right mx-2" alt="Github Repo Link Icon"></a>
+        </div>
 
+        <div class="col-6">
+          <a href="https://www.linkedin.com/in/liam-rotchford-828965113/"><img src="../Icons/linkedinIcon.png"
+              class="iconSizingFootRef float-left mx-2" alt="Linkedin Link Icon"></a>
+        </div>
+      </section>
+    </section>
+
+  </footer>
+
+  <!-- Script -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
   </script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
 
-
 </body>
 
-
-
-<footer class="credits" font-size="small" aria-label="Footer Team Names">
-  <p class="credit-text">Plant Bank</p>
-  <p class="credit-text">Authored by: Iris Li, Liam Rotchford, Yufei Tao</p>
-</footer>
 
 </html>

@@ -8,99 +8,160 @@
   <meta name="author" content="Liam Rotchford">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Plant Bank Homepage</title>
+  <title>About Page</title>
   <script src="https://kit.fontawesome.com/31a00af4ac.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-  <link rel='stylesheet' href='/stylesheets/about.css' />
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='/stylesheets/master.css' />
+  <link rel='stylesheet' href='/stylesheets/informational.css' />
+
+
 </head>
 
 <body>
-  <nav>
-    <div class="logo">
-      <a class="navbar-brand" aria-label="Title Home Nav link" href="/"><img class="logo-img" src="../Icons/leaves.png"
-          alt="" />Plant Bank</a>
+  <nav class="navbar navbar-light bg-light">
+
+    <a href="/" class="navbar-brand font-weight-bold">
+      <img src="../Icons/leafIcon.png" class="d-inline-block iconSizingBrand mr-2" alt="PlantBank Nav Icon">
+      PlantBank
+    </a>
+
+    <div class="navbar-expand-lg">
+      <ul class="navbar-nav font-weight-bold">
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/">Home</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/about">About</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/info">Information</a>
+        </li>
+      </ul>
     </div>
-    <ul class="nav-links">
-      <li class="nav-item" aria-label="Home Nav link"><a class="link" href="/">Home</a></li>
-      <li class="nav-item" aria-label="About Nav link"><a class="link" href="/about">About</a></li>
-      <li class="nav-item" aria-label="Reference Nav link"><a class="link" href="/reference">Reference</a></li>
-    </ul>
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+
+    <div class="input-group input-group-append mt-1 ml-4 w-75">
+      <button class="btn btnColoring text-light input-group-text" id="searchBtn"
+        onclick="getSearchResults()">Search</button>
+      <input type="text" class="form-control col-5" id="searchInp" aria-label="SearchBar">
     </div>
+
+    <button class="navbar-toggler mx-4 mt-3" type="button" value="nav expand button" data-toggle="collapse"
+      data-target="#collapseContent">
+      <i class="fas fa-bars fa-2x"></i>
+    </button>
+
+
+    <section class="collapse navbar-collapse flex-grow-0" id="collapseContent">
+      <section class="container-fluid">
+        <section class="row col-12">
+          <div class="col-12 mt-2 ml-5">
+            <a href="https://github.com/LiamRotchford5671/PlantBank"><img src="../Icons/githubIcon.png"
+                class="iconSizingRef float-right" alt="Github Repo Link Icon"></a>
+          </div>
+
+          <div class="col-12 ml-5">
+            <a href="https://www.linkedin.com/in/liam-rotchford-828965113/"><img src="../Icons/linkedinIcon.png"
+                class="iconSizingRef float-right mt-3" alt="Linkedin Link Icon"></a>
+          </div>
+        </section>
+      </section>
+    </section>
+
   </nav>
 
-  <section class="aboutPage container-fluid">
-    <section class="mainContent col-12">
+
+  <main class="container-fluid my-5 mx-auto text-light">
+    <section class="col-12">
       <div class="mb-4 d-flex justify-content-center">
-        <h1 aria-label="About Title">
+        <h1 aria-label="Contact ">
           <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
           About
           <i class="fas fa-xs fa-leaf"></i>
         </h1>
       </div>
-      <h2 class="title mb-2">Project Concept:</h2>
+
+      <h2 class=" my-4">Quick Note:</h2>
+      <h3 class="list-info" aria-label="Quick note about the application">This application was orginally based on a
+        class project I was a part of with Yufei Tao & Iris Li. I mainly handled the set up of the routing, API work,
+        and homepage content design. This application is my personal redesign and if you would like to view that
+        original project to see the kinds of changes I've included the information below. </h3>
+
+      <h2 class=" my-4">Project Concept:</h2>
       <h3 class="list-info" aria-label="Project Concept">Utilizing the Trefle api; create a minimalisic, simple, and
-        accessible web application for
-        users to quickly gather plant inforamtion and specificaitons.</h3>
+        accessible web application for users to quickly gather plant inforamtion and specificaitons.</h3>
 
-      <h2 class="title mb-2">Project Team Members:</h2>
-      <ul class="list" aria-label="Team Members">
-        <li>
-          <h3 aria-label="Liam Rotchford">Liam Rotchford</h3>
-        </li>
-        <li>
-          <h3 aria-label="Iris Li">Iris Li</h3>
-        </li>
-        <li>
-          <h3 aria-label="Yufei Tao">Yufei Tao</h3>
-        </li>
+      <h2 class=" my-4">Github repo address: </h2>
+      <ul>
+        <h3>
+          <li aria-label="Github Repository Link"><a href="https://github.com/LiamRotchford5671/PlantBank">Plant
+              Bank</a></li>
+        </h3>
       </ul>
 
-      <h2 class="title mb-2">Github repo address: </h2>
-      <ul class="list">
-        <li>
-          <h3 aria-label="Github Repository Link"><a href="https://github.com/LiamRotchford5671/PlantDataBank">Plant
-              Bank</a></h3>
-        </li>
+      <h2 class=" my-4">Deployment: </h2>
+      <ul>
+        <h3>
+          <li aria-label="Hosting Site Link"><a href="">https://plantbank.herokuapp.com/</a></li>
+        </h3>
       </ul>
 
-      <h2 class="title mb-2">Deployment: </h2>
-      <ul class="list">
-        <li>
-          <h3 aria-label="Hosting Site Link"><a
-              href="https://plantbank.herokuapp.com/">https://plantbank.herokuapp.com/</a></h3>
-        </li>
-      </ul>
-
-      <h2 class="title mb-2">API:</h2>
-      <ul class="list">
-        <li>
-          <h3 aria-label="API Site Link"><a class="last" href="https://trefle.io/">Trefle</a></h3>
-        </li>
+      <h2 class=" my-4">API:</h2>
+      <ul>
+        <h3>
+          <li aria-label="API Site Link"><a href="https://trefle.io/">Trefle</a></li>
+        </h3>
         <h3 aria-label="API Information">Open and freely accessible botanical data source and REST API. Plant data and
-          information
-          gathered from the following resources.</h3>
-        <div class="d-flex justify-content-center">
-          <img src="../images/API-Resources.png" alt="API Data Resources">
-        </div>
+          information gathered from the following resources.</h3>
+      </ul>
+      <img src="../images/API-Resources.png" alt="API Data Resources">
+
+      <h2 class=" my-4">Orginal Project Repository: </h2>
+      <ul>
+        <h3>
+          <li aria-label="Github Repository Link"><a href="https://github.com/LiamRotchford5671/PlantDataBank">Plant
+              DataBank</a></li>
+        </h3>
+      </ul>
+
+      <h2 class=" my-4">Original Deployment: </h2>
+      <ul>
+        <h3>
+          <li aria-label="Hosting Site Link"><a href="">https://plantdatabank.herokuapp.com/</a></li>
+        </h3>
       </ul>
 
     </section>
-    <script type="text/javascript" src="../javascripts/about.js"></script>
-  </section>
+  </main>
+
+  <footer class="mt-5" aria-label="Footer">
+    <section class="container-fluid mb-3">
+      <section class="row justify-content-center col-12">
+        <h3 class="text-dark font-weight-bold mt-3">PlantBank</h3>
+      </section>
+      <section class="row justify-content-center col-12">
+        <div>
+          <p class="text-dark font-weight-bold mt-3 mx-5">Liam Rotchford</p>
+        </div>
+      </section>
+      <section class="row justify-content-center col-12">
+        <div class="col-6">
+          <a href="https://github.com/LiamRotchford5671/PlantBank"><img src="../Icons/githubIcon.png"
+              class="iconSizingFootRef float-right mx-2" alt="Github Repo Link Icon"></a>
+        </div>
+
+        <div class="col-6">
+          <a href="https://www.linkedin.com/in/liam-rotchford-828965113/"><img src="../Icons/linkedinIcon.png"
+              class="iconSizingFootRef float-left mx-2" alt="Linkedin Link Icon"></a>
+        </div>
+      </section>
+    </section>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="../javascripts/homepage.js"></script>
 
 </body>
-
-<footer class="credits" font-size="small" aria-label="Footer Team Names">
-  <p class="credit-text">Plant Bank</p>
-  <p class="credit-text">Authored by: Iris Li, Liam Rotchford, Yufei Tao</p>
-</footer>
 
 </html>

@@ -7,148 +7,175 @@
   <meta charset="UTF-8">
   <meta name="description" content="Search plants and displays results by utilizing the Trefle.io plant API">
   <meta name="keywords" content="EJS, CSS, JavaScript, Express (Node), Bootstrap, Font Awesome">
-  <meta name="author" content="Yan Li">
+  <meta name="author" content="Liam Rotchford">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://kit.fontawesome.com/31a00af4ac.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+  <link rel='stylesheet' href='/stylesheets/master.css' />
   <link rel='stylesheet' href='/stylesheets/result.css' />
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="homepage-content">
-  <nav>
-    <div class="logo">
-      <a class="navbar-brand" aria-label="Title Home Nav link" href="/"><img class="logo-img" src="../Icons/leaves.png"
-          alt="" />Plant Bank</a>
+<body>
+
+  <nav class="navbar navbar-light bg-light">
+
+    <a href="/" class="navbar-brand font-weight-bold">
+      <img src="../Icons/leafIcon.png" class="d-inline-block iconSizingBrand mr-2" alt="PlantBank Nav Icon">
+      PlantBank
+    </a>
+
+    <div class="navbar-expand-lg">
+      <ul class="navbar-nav font-weight-bold">
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/">Home</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/about">About</a>
+        </li>
+        <li class="nav-item mx-5">
+          <a class="nav-link NavPages" href="/info">Information</a>
+        </li>
+      </ul>
     </div>
-    <ul class="nav-links">
-      <li class="nav-item" aria-label="Home Nav link"><a class="link" href="/">Home</a></li>
-      <li class="nav-item" aria-label="About Nav link"><a class="link" href="/about">About</a></li>
-      <li class="nav-item" aria-label="Reference Nav link"><a class="link" href="/reference">Reference</a></li>
-    </ul>
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+
+    <div class="input-group input-group-append mt-1 ml-4 w-75">
+      <button class="btn btnColoring text-light input-group-text" id="searchBtn"
+        onclick="getSearchResults()">Search</button>
+      <input type="text" class="form-control col-5" id="searchInp" aria-label="SearchBar">
     </div>
+
+    <button class="navbar-toggler mx-4 mt-3" type="button" value="nav expand button" data-toggle="collapse"
+      data-target="#collapseContent">
+      <i class="fas fa-bars fa-2x"></i>
+    </button>
+
+
+    <section class="collapse navbar-collapse flex-grow-0" id="collapseContent">
+      <section class="container-fluid">
+        <section class="row col-12">
+          <div class="col-12 mt-2 ml-5">
+            <a href="https://github.com/LiamRotchford5671/PlantBank"><img src="../Icons/githubIcon.png"
+                class="iconSizingRef float-right" alt="Github Repo Link Icon"></a>
+          </div>
+
+          <div class="col-12 ml-5">
+            <a href="https://www.linkedin.com/in/liam-rotchford-828965113/"><img src="../Icons/linkedinIcon.png"
+                class="iconSizingRef float-right mt-3" alt="Linkedin Link Icon"></a>
+          </div>
+        </section>
+      </section>
+    </section>
+
   </nav>
 
-  <section class="row">
-    <div class="col">
-      <div class="card searchStyle">
-        <img class="card-img" src="../images/back-img.png" alt="">
-        <div class="card-img-overlay d-flex mx-auto align-items-center col-lg-10 col-12">
-          <div class="input-group input-group-lg input-group-append">
-            <div class="input-group-append">
-              <button class="input-group-text" id="searchBtn" onclick="getSearchResults()">Search</button>
-            </div>
-            <input type="text" class="form-control" id="searchInp" aria-label="SearchBar">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <main class="container-fluid my-5">
 
-  <!-- Header or name of the plant -->
-  <section class="row justify-content-center gap">
-    <h1 class="text-center">
-      <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
-      Search Results
-      <i class="fas fa-xs fa-leaf"></i>
-    </h1>
-  </section>
+    <section class="row text-light justify-content-center mt-5 mb-3">
+      <h1 class="text-center">
+        <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
+        Search Results
+        <i class="fas fa-xs fa-leaf"></i>
+      </h1>
+    </section>
+    <section class="row justify-content-center mx-auto col-10" id="tableContainer" aria-label="Results_row">
 
-  <!-- the header and search bar -->
-  <section class="container d-flex justify-content-center mb-5">
-
-    <div class="tableContainer col-sm-3 col-md-11 col-lg-11">
-      <section class="row theRow" aria-label="Results_row">
-        <table class="table text-dark table-striped table-bordered" id="table" class="text-dark" data-toggle="table">
-          <thead class="head_title text-white">
-            <tr>
-              <th>
-                <h2>IMAGE</h2>
-              </th>
-              <th>
-                <h2>NAME</h2>
-              </th>
-              <th>
-                <h2>PLANT DEATAILS</h2>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for (let i = 0; i < results.length; i++) { %>
-            <tr>
-              <td>
-                <img class="plant_img" src="<%= results[i].image_url %>" alt="<%= results[i].slug %> image"
-                  onerror="javascript:this.src='../Icons/ImageUnavailible.png'" width="100" height="100">
-              </td>
-              <% if (results[i].slug) { %>
-              <td class="names align-middle" style="text-transform: capitalize">
-                <%= results[i].slug %>
-              </td>
-              <% } else { %>
-              <td class="names align-middle" style="text-transform: capitalize">
-                <%= results[i].scientific_name %>
-              </td>
-              <% } %>
-              <td class="names align-middle">
-                <button class="btn btn-primary btnColoring btn-lg detailBtns"
-                  onclick="getDetails('<%= results[i].slug %>')"> Plant
-                  Details</button>
-              </td>
-            </tr>
+      <table class="table table-hover text-center" id="table" data-toggle="table" aria-label="Search Results Table">
+        <thead>
+          <tr scope="row">
+            <th scope="col" class="col-4">
+              <h2 aria-label="Plant Image Column">Preview Image</h2>
+            </th>
+            <th scope="col" class="col-4">
+              <h2 aria-label="Plant Name Column">Plant Name</h2>
+            </th>
+            <th scope="col" class="col-4">
+              <h2 aria-label="Plant Details Column">Plant Specifications</h2>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < results.length; i++) { %>
+          <tr scope="row">
+            <td>
+              <img class="plant_img" src="<%= results[i].image_url %>" alt="<%= results[i].slug %> image"
+                onerror="javascript:this.src='../Icons/no-photo.png'" width="200" height="150">
+            </td>
+            <% if (results[i].common_name) { %>
+            <td class="align-middle text-capitalize">
+              <%= results[i].common_name %>
+            </td>
+            <% } else { %>
+            <td class="align-middle text-capitalize">
+              <%= results[i].scientific_name %>
+            </td>
             <% } %>
-          </tbody>
+            <td class="align-middle">
+              <button class="btn btn-primary btnColoring btn-lg"
+                onclick="getDetails('<%= results[i].slug %>')">Details</button>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
 
-        </table>
 
-      </section>
 
       <% if (count > 1) { %>
-      <button id="prevSearchBtn" class="btn btn-primary btnColoring btn-lg" role="button" value="<%= count %>"
-        style="width:100px" aria-label="Previous button of table results">Previous</button>
+      <button id="prevSearchBtn" class="btn btn-primary btn-lg btnColoring mr-5 col-4" role="button"
+        value="<%= count %>" aria-label="Previous button of table results">Previous</button>
       <% } else { %>
-      <!-- Ignore styling this or changing, created solely so the JS still works (it not visible and disabled)-->
-      <button id="prevSearchBtn" class="btn btn-primary d-none" disabled role="button"
-        value="<%= count %>">Previous</button>
+      <button id="prevSearchBtn" class="btn btn-primary d-none" disabled role="button" value="<%= count %>"></button>
       <% } %>
-
       <% if (count < lastPg) { %>
-      <button id="nextSearchBtn" class="btn btn-primary btnColoring btn-lg float-right" role="button"
-        value="<%= count %>" style="width: 100px" aria-label="Next button of table results">Next</button>
+      <button id="nextSearchBtn" class="btn btn-primary btn-lg btnColoring ml-5 float-right col-4" role="button"
+        value="<%= count %>" aria-label="Next button of table results">Next</button>
       <% } else { %>
-      <!-- Ignore styling this or changing, created solely so the JS still works (it not visible and disabled)-->
-      <button id="nextSearchBtn" class="btn btn-primary d-none" disabled role="button"
-        value="<%= count %>">Next</button>
+      <button id="nextSearchBtn" class="btn btn-primary d-none" disabled role="button" value="<%= count %>"></button>
       <% } %>
 
-      <footer class="credits" font-size="small" aria-label="Footer Team Names">
-        <p class="credit-text">Plant Bank</p>
-        <p class="credit-text">Authored by: Iris Li, Liam Rotchford, Yufei Tao</p>
-      </footer>
-    </div>
-  </section>
+    </section>
+
+  </main>
+
+  <footer class="mt-5" aria-label="Footer">
+    <section class="container-fluid mb-3">
+      <section class="row justify-content-center col-12">
+        <h3 class="text-dark font-weight-bold mt-3">PlantBank</h3>
+      </section>
+      <section class="row justify-content-center col-12">
+        <div>
+          <p class="text-dark font-weight-bold mt-3 mx-5">Liam Rotchford</p>
+        </div>
+      </section>
+      <section class="row justify-content-center col-12">
+        <div class="col-6">
+          <a href="https://github.com/LiamRotchford5671/PlantBank"><img src="../Icons/githubIcon.png"
+              class="iconSizingFootRef float-right mx-2" alt="Github Repo Link Icon"></a>
+        </div>
+
+        <div class="col-6">
+          <a href="https://www.linkedin.com/in/liam-rotchford-828965113/"><img src="../Icons/linkedinIcon.png"
+              class="iconSizingFootRef float-left mx-2" alt="Linkedin Link Icon"></a>
+        </div>
+      </section>
+    </section>
+
+  </footer>
+
+  <!-- Script -->
   <script type="text/javascript" src="../javascripts/searchResults.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
   </script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-  </script>
-
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
-
 
 </body>
 
