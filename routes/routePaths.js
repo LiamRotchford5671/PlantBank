@@ -146,7 +146,7 @@ router.get('/plantInformation', async (req, res) => {
     .catch(err => console.error(err));
 
   res.render('plantInformation', {
-    data: plantObj.data.data
+    data: plantObj.data.data,
   });
 
   res.end();

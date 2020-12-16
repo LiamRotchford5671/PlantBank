@@ -72,21 +72,29 @@
 
   </nav>
 
-  <main class="container-fluid text-light my-5 col-10">
+  <main class="container-fluid text-light my-5 col-11">
 
-    <header class="header mt-3 col-8">
+    <header class="header mt-3">
       <h1>
         <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
         <% if (data.common_name) {%>
-        <span class="text-center font-weight-bold font-italic" aria-label="Plant Name"><%= data.common_name %></span>
+        <span class="text-center font-weight-bold font-italic text-capitalize"
+          aria-label="Plant Name"><%= data.common_name %></span>
         <% } else { %>
-        <span class="text-center font-weight-bold font-italic"
+        <span class="text-center font-weight-bold font-italic text-capitalize"
           aria-label="Plant Name"><%= data.scientific_name %></span>
         <% } %>
       </h1>
     </header>
 
-    <section class="general mt-5">
+    <section class="general mt-5 col-sm-12 col-md-12 col-lg-12">
+
+      <section class="titleHidden my-1 mx-auto justify-content-center"
+        aria-label="Plant Preview Image Phone Only Display">
+        <img class="previewHidden" src="<%= data.image_url %>" onerror="javascript:this.src='../Icons/no-photo.png'"
+          alt="<%= data.slug %> image">
+      </section>
+
       <table class="table table-bordered text-light">
         <tbody>
           <tr>
@@ -123,14 +131,14 @@
 
     <section class="preview mt-5 mx-auto w-75" aria-label="Plant Preview Image">
       <img class="previewImg" src="<%= data.image_url %>" onerror="javascript:this.src='../Icons/no-photo.png'"
-        height="425px" width="400px" alt="<%= data.slug %> image">
+        height="425px" width="575px" alt="<%= data.slug %> image">
     </section>
 
     <section class="details row mt-5">
 
-      <section class="col-6">
+      <section class="col-sm-12 col-md-12 col-lg-6">
         <section class="mb-2" aria-label="General Details Title">
-          <h2 class="text-center" role="title">
+          <h2 class="tableTitle text-center" role="title">
             <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
             General Details
             <i class="fas fa-xs fa-leaf"></i>
@@ -265,9 +273,9 @@
         </table>
       </section>
 
-      <section class="col-6">
-        <section class="mx-auto mb-2" aria-label="General Information Title">
-          <h2 class="text-center" role="title">
+      <section class="col-sm-12 col-md-12 col-lg-6">
+        <section class="mx-auto mb-2" aria-label="Growth Information Title">
+          <h2 class="tableTitle text-center" role="title">
             <i class="fas fa-xs fa-leaf fa-flip-horizontal"></i>
             Growth Information
             <i class="fas fa-xs fa-leaf"></i>
@@ -398,10 +406,6 @@
               <td class="font-italic">Information Not Availible</td>
               <% } %>
             </tr>
-
-
-
-
           </tbody>
         </table>
       </section>
